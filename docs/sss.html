@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SSS & Tanıtım – Akvaryum Dozaj Sistemi | AquascapeTR</title>
+  <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+  <style>
+    :root {
+      --bg: #0f1a17; --card: #16241f; --text: #e6efe9; --muted: #9db3a8;
+      --accent: #3fbf7f; --warn: #f2b84b; --line: #24372f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.6;
+    }
+    main { max-width: 760px; margin: 0 auto; padding: 32px 20px 64px; }
+    header { margin-bottom: 28px; }
+    .brand { color: var(--accent); font-weight: 700; letter-spacing: .04em; font-size: .9rem; }
+    h1 { margin: 6px 0 8px; font-size: 1.9rem; line-height: 1.25; }
+    h2 { font-size: 1.2rem; margin: 0 0 12px; }
+    p.lead { color: var(--muted); margin: 0; }
+    section {
+      background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+      padding: 22px; margin-bottom: 18px;
+    }
+    ol { padding-left: 22px; margin: 0; }
+    li { margin-bottom: 8px; }
+    code { background: #0b1411; padding: 2px 6px; border-radius: 6px; font-size: .92em; }
+    .note {
+      border-left: 4px solid var(--warn); background: #2a2415; padding: 12px 14px;
+      border-radius: 8px; margin-top: 14px; font-size: .95rem;
+    }
+    .install { text-align: center; padding: 8px 0 4px; }
+    esp-web-install-button button, .btn {
+      background: var(--accent); color: #062014; border: 0; border-radius: 10px;
+      padding: 14px 26px; font-size: 1.05rem; font-weight: 700; cursor: pointer;
+      text-decoration: none; display: inline-block;
+    }
+    .unsupported { color: var(--warn); }
+    .links a { color: var(--accent); }
+    footer { color: var(--muted); font-size: .9rem; text-align: center; margin-top: 28px; }
+    footer a { color: var(--accent); }
+    .top { display:flex; gap:18px; align-items:center; margin-bottom:26px; }
+    .logo { width:96px; height:96px; border-radius:50%; box-shadow:0 0 0 3px #ffffff22; flex:none; }
+    .brand { color: var(--text); font-weight:800; font-size:1.1rem; } .r{ color:#e5383b; }
+    nav { display:flex; gap:14px; flex-wrap:wrap; margin-top:10px; align-items:center; }
+    nav a { color: var(--accent); font-weight:600; text-decoration:none; }
+    a.yt { display:inline-flex; gap:6px; align-items:center; background:#ff0033; color:#fff !important; padding:6px 12px; border-radius:999px; }
+    @media (max-width:560px){ .top{ flex-direction:column; text-align:center; } nav{ justify-content:center; } }
+    summary{cursor:pointer;font-weight:600;padding:12px 0}
+    details{border-bottom:1px solid var(--line)}
+    details p{color:var(--muted);margin:0 0 12px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+    .grid div{background:#0b1411;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:.92rem;color:var(--muted)}
+    .grid b{display:block;color:var(--text);margin:4px 0 2px}
+  </style>
+</head>
+<body>
+<main>
+  <header class="top">
+    <a href="./"><img src="logo.webp" alt="AquascapeTR" class="logo"></a>
+    <div><div class="brand">Aquascape<span class="r">TR</span></div>
+      <h1>Akvaryum Otomatik Gübre Dozaj Sistemi</h1>
+      <p class="lead">4 kanal, haftalık program, ml hassasiyeti, kalibrasyon sihirbazı ve şişe takibi. Home Assistant gerekmez.</p>
+      <nav><a class="yt" href="https://www.youtube.com/@AquascapeTR" target="_blank"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1c.4-1.6.5-4.8.5-4.8s0-3.2-.5-4.8zM9.7 15.1V8.9l5.8 3.1-5.8 3.1z"/></svg> YouTube kanalımız</a><a href="./">Kurulum</a><a href="https://github.com/AquascapeTR/akvaryum-dozaj" target="_blank">GitHub</a></nav>
+    </div>
+  </header>
+  <section>
+    <h2>Sistem nedir?</h2>
+    <p>AquascapeTR Dozaj Sistemi; bitkili akvaryumlar için geliştirilmiş, 4 kanallı, programlanabilir bir otomatik sıvı gübre dozaj sistemidir. Türkiye'de kolayca bulunan, uygun fiyatlı parçalarla <strong>lehimsiz</strong> kurulur; yazılım tarayıcıdan tek tıkla yüklenir. Kontrol paneli cihazın içindedir — bulut, uygulama veya Home Assistant gerekmez.</p>
+  </section>
+  <section>
+    <h2>Öne çıkanlar</h2>
+    <div class="grid"><div>💧<b>4 bağımsız kanal</b>Her pompa için ayrı ad, renk ve program.</div><div>🗓️<b>Haftalık program</b>İstediğin günler, günde 6 doza kadar.</div><div>🎯<b>ml hassasiyeti</b>Doz ml olarak girilir, süre otomatik hesaplanır.</div><div>🧪<b>Kolay kalibrasyon</b>30 saniyelik test, adım adım sihirbaz.</div><div>🍾<b>Şişe takibi</b>Kalan gübre ve kaç gün yeteceği görünür.</div><div>🛡️<b>Güvenlik</b>Pompalar asla aynı anda çalışmaz; süre sınırı ve acil durdur.</div><div>📶<b>Bağımsız çalışır</b>Home Assistant, bulut veya uygulama gerekmez.</div><div>🔄<b>Kablosuz güncelleme</b>Yeni sürümler panelden yüklenir.</div></div>
+  </section>
+  <section>
+    <h2>Nasıl çalışır?</h2>
+    <ol>
+      <li><strong>Kur:</strong> ESP32'yi bilgisayara tak, <a href="./" style="color:var(--accent)">kurulum sayfasından</a> yazılımı yükle, Wi-Fi'ı ayarla.</li>
+      <li><strong>Bağla:</strong> Röle modülünü ve pompaları bağlantı şemasına göre bağla.</li>
+      <li><strong>Ayarla:</strong> aquascapetr.local panelinden pompaları adlandır, kalibre et ve haftalık programı gir.</li>
+    </ol>
+  </section>
+  <section>
+    <h2>Sıkça sorulan sorular</h2>
+    <details><summary>Bu sistem ne işe yarar?</summary><p>Akvaryumuna sıvı gübreleri (makro, mikro, potasyum, iz element vb.) senin belirlediğin gün ve saatlerde, ml hassasiyetinde otomatik olarak verir. Her gün elle dozlama yapma derdini ortadan kaldırır, bitkilere düzenli ve dengeli besin sağlar.</p></details><details><summary>Hangi parçalar gerekiyor?</summary><p>Bir ESP32 geliştirme kartı, 4 kanallı 5V röle modülü, 12V→5V USB dönüştürücü, 12V adaptör, 4 adet 12V peristaltik pompa, 4 diyot ve jumper kablolar. Lehim gerekmez. Ayrıntılı liste ve bağlantı şeması kurulum sayfasında.</p></details><details><summary>Kod bilmem gerekiyor mu?</summary><p>Hayır. Yazılım hazır: ESP32&#x27;yi USB ile bilgisayara takıp kurulum sayfasındaki “Yazılımı Yükle” butonuna basman yeterli. Wi-Fi ayarı da aynı sayfada yapılır.</p></details><details><summary>Home Assistant, internet veya bir uygulama gerekli mi?</summary><p>Hayır. Sistem tamamen bağımsız çalışır; kontrol paneli cihazın içindedir ve ev ağından aquascapetr.local adresiyle açılır. İnternet yalnızca saati öğrenmek için kullanılır.</p></details><details><summary>Programı nasıl kurarım?</summary><p>Pompa kartına dokun, dozlama yapılacak günleri seç (her gün, hafta içi ya da istediğin günler), ardından doz zamanlarını ve miktarlarını ekle. Günde 6 doza kadar tanımlanabilir. “Programı kaydet” deyince program cihaza yazılır ve “Otomatik” açıkken uygulanır.</p></details><details><summary>Kalibrasyon nedir, ne sıklıkla yapmalıyım?</summary><p>Her pompanın saniyede kaç ml bastığını ölçmektir. İlk kurulumda, hortum değiştirdiğinde ve ayda bir kontrol amaçlı yapmanı öneririz. Sihirbaz pompayı 30 sn çalıştırır, sen ölçü kabındaki miktarı girersin, gerisini sistem hesaplar.</p></details><details><summary>Aynı anda birden fazla pompa çalışır mı?</summary><p>Hayır. Aynı saate denk gelen dozlar sırayla ve aralarında 10 saniye beklenerek verilir. Böylece bazı gübrelerin hortumda veya suyun aynı noktasında birbiriyle tepkimeye girmesi engellenir.</p></details><details><summary>Elektrik veya internet kesilirse ne olur?</summary><p>Tüm ayarlar cihazın hafızasında kalır. Kesinti sırasında saati gelen dozlar atlanır; sistem asla telafi için fazladan doz vermez. Elektrik geldikten sonra saat internetten tekrar alınır ve program kaldığı yerden devam eder.</p></details><details><summary>Bir pompa takılı kalıp tüm gübreyi basabilir mi?</summary><p>Buna karşı birkaç önlem var: tek doz “Maks. pompa süresi”ni (varsayılan 30 sn) aşamaz, kapatma komutu tekrarlanır, boştayken röleler düzenli olarak kapalı konuma çekilir, açılışta tüm pompalar kapalıdır ve panelde her zaman bir Acil Durdur butonu bulunur.</p></details><details><summary>Şişe takibi nasıl çalışır?</summary><p>Şişe hacmini bir kez girersin. Şişeyi doldurduğunda “Şişeyi doldurdum”a basarsın; her dozda kalan miktar otomatik düşer ve kartta gübrenin yaklaşık kaç gün yeteceği gösterilir.</p></details><details><summary>Panel açılmıyor, ne yapmalıyım?</summary><p>Telefonun/bilgisayarın cihazla aynı Wi-Fi ağında olduğundan emin ol. aquascapetr.local açılmazsa modem arayüzündeki bağlı cihazlar listesinden “aquascapetr” cihazının IP adresini bulup tarayıcıya yaz. Bazı Android telefonlar .local adreslerini açamaz.</p></details><details><summary>Yazılımı nasıl güncellerim?</summary><p>Yeni sürüm çıktığında kurulum sayfasından .ota.bin dosyasını indirip panelde Ayarlar → Yazılım güncelle bölümünden yükleyebilirsin. Ayarların ve programların korunur.</p></details><details><summary>Hangi gübreleri kullanabilirim?</summary><p>Akvaryum için üretilmiş sıvı gübrelerin ve kendi hazırladığın çözeltilerin tamamı kullanılabilir. Pompa hortumunun (silikon/BPT) kullandığın sıvıya uygun olduğundan emin ol ve hortumları belirli aralıklarla kontrol et.</p></details>
+  </section>
+  <footer>
+    <img src="logo.webp" alt="" style="width:48px;height:48px;border-radius:50%;vertical-align:middle"><br>
+    <a class="yt" href="https://www.youtube.com/@AquascapeTR" target="_blank" style="margin-top:8px"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1c.4-1.6.5-4.8.5-4.8s0-3.2-.5-4.8zM9.7 15.1V8.9l5.8 3.1-5.8 3.1z"/></svg> AquascapeTR'ye abone ol</a><br><br>
+    <a href="sss.html">SSS &amp; Tanıtım</a> · <a href="https://github.com/AquascapeTR/akvaryum-dozaj" target="_blank">GitHub</a>
+  </footer>
+</main>
+</body>
+</html>

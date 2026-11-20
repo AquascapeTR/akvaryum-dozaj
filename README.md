@@ -1,6 +1,8 @@
 # Akvaryum Otomatik Gübre Dozaj Sistemi
 
-**AquascapeTR** · [YouTube](https://www.youtube.com/@AquascapeTR)
+![AquascapeTR](docs/logo.webp)
+
+**AquascapeTR** · [YouTube kanalımız](https://www.youtube.com/@AquascapeTR) · [SSS & Tanıtım](https://aquascapetr.github.io/akvaryum-dozaj/sss.html)
 
 4 kanallı, ml bazlı, zamanlamalı akvaryum gübre dozaj sistemi. Bir ESP32 geliştirme kartı, hazır bir 4 kanal röle modülü ve 12V peristaltik pompalarla, lehimsiz yapılır. **Home Assistant veya başka bir sunucu gerekmez**; kontrol, kartın kendi web sayfasından yapılır.
 
@@ -13,8 +15,8 @@ ESP32'yi USB ile bilgisayara takıp oradaki **"Yazılımı Yükle"** butonuna ba
 ## Özellikler
 
 - 4 bağımsız pompa, doz miktarı **ml** cinsinden
-- Her pompa için ayrı doz saati, otomatik açma/kapama
-- 30 saniyelik test ile kolay kalibrasyon
+- Haftalık program: istenen günler, günde 6 doza kadar (saat + ml)
+- Animasyonlu, adım adım kalibrasyon sihirbazı
 - Şişede kalan gübre takibi (her dozda otomatik düşer)
 - Wi-Fi kurulumu yükleme sayfasında (veya telefondan, kurulum ağı üzerinden)
 - AquascapeTR arayüzü: kanal başına renkli kart, şişe seviyesi, pompa adlandırma, tek dokunuşla kalibrasyon
