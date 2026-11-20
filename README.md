@@ -44,7 +44,9 @@ ESP32'yi USB ile bilgisayara takıp oradaki **"Yazılımı Yükle"** butonuna ba
 
 ## Bağlantı şeması
 
-![Bağlantı şeması](docs/baglanti-semasi.svg)
+![Kurulum şeması](docs/kurulum-semasi.png)
+
+Adım adım vurgulu şema cihazın kontrol panelinde de var: **Kurulum Şeması**.
 
 | ESP32 | Röle modülü |
 |---|---|

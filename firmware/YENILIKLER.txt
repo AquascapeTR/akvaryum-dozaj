@@ -1,1 +1,1 @@
-Tanıtım ve SSS metinleri sadeleştirildi.
+Panele adım adım kurulum şeması eklendi (Kurulum Şeması).
