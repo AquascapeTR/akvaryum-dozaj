@@ -1,5 +1,5 @@
 # =====================================================================
-#  AquascapeTR - Otomatik Gubre Dozaj Sistemi  v2.1.0
+#  AquascapeTR - Otomatik Gubre Dozaj Sistemi  v2.2.0
 #  Donanim: ESP32 (veya ESP32-S3) gelistirme karti + 4 kanal role modulu
 #  Pompa 1: GPIO18 | Pompa 2: GPIO17 | Pompa 3: GPIO16 | Pompa 4: GPIO4
 #  Role modulu: VCC -> 3V3, JD-VCC -> 5V (jumper cikarilir), GND -> GND
@@ -28,13 +28,16 @@ esphome:
     - baglanti.h
   project:
     name: aquascapetr.akvaryum-dozaj
-    version: "2.1.0"
+    version: "2.2.0"
   on_boot:
     priority: -100
     then:
       - script.execute: tum_kapat
       - delay: 1s
       - script.execute: tum_kapat
+      # Acilistan 2 dk sonra bir kez guncelleme kontrolu
+      - delay: 120s
+      - component.update: guncelleme
 
 substitutions:
   board: esp32dev
@@ -64,9 +67,35 @@ web_server:
 # Kurulum sayfasindan (USB uzerinden) Wi-Fi ayari
 improv_serial:
 
+# Guncelleme baslarken tum pompalar durdurulur
 ota:
   - platform: esphome
+    on_begin:
+      - script.stop: doz
+      - script.stop: kalibrasyon
+      - script.execute: tum_kapat
   - platform: web_server
+    on_begin:
+      - script.stop: doz
+      - script.stop: kalibrasyon
+      - script.execute: tum_kapat
+  - platform: http_request
+    on_begin:
+      - script.stop: doz
+      - script.stop: kalibrasyon
+      - script.execute: tum_kapat
+
+# Cevrimici guncelleme: GitHub'daki surum bilgisini haftada bir kontrol eder.
+# Yeni surum varsa panelde bildirilir; kurulum kullanici onayiyla yapilir.
+http_request:
+  timeout: 20s
+
+update:
+  - platform: http_request
+    id: guncelleme
+    name: "Yazılım Güncellemesi"
+    source: https://aquascapetr.github.io/akvaryum-dozaj/firmware/manifest.json
+    update_interval: 7d
 
 # Wi-Fi bilgisi yazilimda YOK: kurulum telefondan, kurulum agi uzerinden yapilir
 wifi:
@@ -784,6 +813,12 @@ button:
       - script.stop: doz
       - script.stop: kalibrasyon
       - script.execute: tum_kapat
+  - platform: template
+    name: "Güncelleme Kontrolü"
+    icon: mdi:cloud-search
+    entity_category: config
+    on_press:
+      - component.update: guncelleme
   - platform: restart
     name: "Yeniden Başlat"
     entity_category: config

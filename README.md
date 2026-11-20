@@ -21,7 +21,7 @@ ESP32'yi USB ile bilgisayara takıp oradaki **"Yazılımı Yükle"** butonuna ba
 - Wi-Fi kurulumu yükleme sayfasında (veya telefondan, kurulum ağı üzerinden)
 - AquascapeTR arayüzü: kanal başına renkli kart, şişe seviyesi, pompa adlandırma, tek dokunuşla kalibrasyon
 - Ayarlar kartın hafızasında; elektrik kesilince kaybolmaz
-- Yazılım güncellemesi kablosuz (web sayfasından)
+- Çevrimiçi güncelleme: cihaz haftada bir GitHub'daki sürümü kontrol eder, panelde bildirir, tek tıkla kurar
 - Bağlantı bekçisi: modem erişimini her dakika kontrol eder, Wi-Fi'ı yeniden kurar, gerekirse cihazı yeniden başlatır
 
 ### Güvenlik
@@ -72,3 +72,10 @@ ESP32'yi USB ile bilgisayara takıp oradaki **"Yazılımı Yükle"** butonuna ba
 
 - Kart saati internetten alır. Elektrik kesintisinden sonra internet yoksa o süre içindeki dozlar **atlanır** (fazla doz riski yoktur).
 - Kendi ihtiyacınıza göre değiştirmek için yapılandırma dosyası: [`firmware/akvaryum-dozaj.yaml`](firmware/akvaryum-dozaj.yaml) (ESPHome)
+
+## Yeni sürüm yayınlama (geliştirici notu)
+
+1. `firmware/akvaryum-dozaj.yaml` içinde `esphome → project → version` değerini artır (örn. `2.2.0` → `2.3.0`).
+2. `firmware/YENILIKLER.txt` dosyasının ilk satırına bu sürümün kısa özetini yaz (panelde “Yenilikler” olarak görünür).
+3. Değişiklikleri `main` dalına gönder. GitHub Actions ESP32 ve ESP32-S3 için derler, kurulum sayfasını ve `firmware/manifest.json`'ı günceller.
+4. Kullanıcıların cihazları en geç bir hafta içinde yeni sürümü görür; panelden “Güncellemeleri kontrol et” ile hemen de görülebilir.

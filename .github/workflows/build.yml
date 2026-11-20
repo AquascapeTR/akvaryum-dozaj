@@ -25,12 +25,18 @@ jobs:
       - name: Depoyu al
         uses: actions/checkout@v4
 
+      - name: Sürüm notunu oku
+        id: notlar
+        run: echo "ozet=$(head -n1 firmware/YENILIKLER.txt)" >> "$GITHUB_OUTPUT"
+
       - name: ESPHome ile derle (ESP32)
         id: esp32
         uses: esphome/build-action@v7.0.0
         with:
           yaml-file: firmware/akvaryum-dozaj.yaml
           complete-manifest: true
+          release-summary: ${{ steps.notlar.outputs.ozet }}
+          release-url: https://github.com/AquascapeTR/akvaryum-dozaj/commits/main
 
       - name: ESPHome ile derle (ESP32-S3)
         id: esp32s3
@@ -38,6 +44,8 @@ jobs:
         with:
           yaml-file: firmware/akvaryum-dozaj-s3.yaml
           complete-manifest: true
+          release-summary: ${{ steps.notlar.outputs.ozet }}
+          release-url: https://github.com/AquascapeTR/akvaryum-dozaj/commits/main
 
       - name: Kurulum sayfasını hazırla
         run: |
