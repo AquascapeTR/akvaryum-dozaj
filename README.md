@@ -4,7 +4,7 @@
 
 **AquascapeTR** · [YouTube kanalımız](https://www.youtube.com/@AquascapeTR) · [SSS & Tanıtım](https://aquascapetr.github.io/akvaryum-dozaj/sss.html)
 
-4 kanallı, ml bazlı, zamanlamalı akvaryum gübre dozaj sistemi. Bir ESP32 geliştirme kartı, hazır bir 4 kanal röle modülü ve 12V peristaltik pompalarla, lehimsiz yapılır. **Home Assistant veya başka bir sunucu gerekmez**; kontrol, kartın kendi web sayfasından yapılır.
+4 kanallı, ml bazlı, zamanlamalı akvaryum gübre dozaj sistemi. Bir ESP32 geliştirme kartı, hazır bir 4 kanal röle modülü ve 12V peristaltik pompalarla, lehimsiz yapılır. Kontrol, kartın kendi web panelinden yapılır; uygulama veya üyelik gerekmez.
 
 ## 👉 Kurulum sayfası
 

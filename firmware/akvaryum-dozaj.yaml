@@ -1,12 +1,12 @@
 # =====================================================================
-#  AquascapeTR - Otomatik Gubre Dozaj Sistemi  v2.2.0
+#  AquascapeTR - Otomatik Gubre Dozaj Sistemi  v2.2.1
 #  Donanim: ESP32 (veya ESP32-S3) gelistirme karti + 4 kanal role modulu
 #  Pompa 1: GPIO18 | Pompa 2: GPIO17 | Pompa 3: GPIO16 | Pompa 4: GPIO4
 #  Role modulu: VCC -> 3V3, JD-VCC -> 5V (jumper cikarilir), GND -> GND
 #  https://github.com/AquascapeTR/akvaryum-dozaj
 #  https://www.youtube.com/@AquascapeTR
 #
-#  - Home Assistant GEREKMEZ. Kontrol kartin kendi web sayfasindan:
+#  - Kontrol kartin kendi web panelinden yapilir:
 #      http://aquascapetr.local
 #  - Wi-Fi: kurulum sayfasinda yuklemeden hemen sonra ya da
 #    "AquascapeTR Kurulum" agi uzerinden telefondan ayarlanir.
@@ -28,7 +28,7 @@ esphome:
     - baglanti.h
   project:
     name: aquascapetr.akvaryum-dozaj
-    version: "2.2.0"
+    version: "2.2.1"
   on_boot:
     priority: -100
     then:

@@ -1,1 +1,1 @@
-Çevrimiçi güncelleme: panelden güncelleme kontrolü ve tek tıkla kurulum, haftalık otomatik kontrol.
+Tanıtım ve SSS metinleri sadeleştirildi.
