@@ -31,19 +31,13 @@ jobs:
         with:
           yaml-file: firmware/akvaryum-dozaj.yaml
           complete-manifest: true
-          substitutions: |
-            board=esp32dev
-            variant=esp32
 
       - name: ESPHome ile derle (ESP32-S3)
         id: esp32s3
         uses: esphome/build-action@v7.0.0
         with:
-          yaml-file: firmware/akvaryum-dozaj.yaml
+          yaml-file: firmware/akvaryum-dozaj-s3.yaml
           complete-manifest: true
-          substitutions: |
-            board=esp32-s3-devkitc-1
-            variant=esp32s3
 
       - name: Kurulum sayfasını hazırla
         run: |
