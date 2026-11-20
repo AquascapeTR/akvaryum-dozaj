@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 690" font-family="Segoe UI, Roboto, Arial, sans-serif">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="500" y="38" text-anchor="middle" font-size="24" font-weight="700" fill="#16302a">Akvaryum Dozaj Sistemi – Bağlantı Şeması</text>
+<text x="500" y="62" text-anchor="middle" font-size="14" fill="#5b6f66">AquascapeTR · ESP-01 4 Kanal 12V Röle Kartı · 4 × 12V peristaltik pompa</text>
+<rect x="30" y="250" width="150" height="110" rx="10" fill="#eef3f1" stroke="#16302a" stroke-width="2"/>
+<text x="105" y="290" text-anchor="middle" font-size="17" font-weight="700">12V Adaptör</text><text x="105" y="312" text-anchor="middle" font-size="13" fill="#5b6f66">en az 2A</text>
+<circle cx="180" cy="275" r="6" fill="#d6332f"/><text x="165" y="270" text-anchor="end" font-size="14" fill="#d6332f" font-weight="700">+</text>
+<circle cx="180" cy="340" r="6" fill="#222"/><text x="165" y="350" text-anchor="end" font-size="16" font-weight="700">−</text>
+<rect x="300" y="100" width="330" height="500" rx="12" fill="#1d4f9c" stroke="#123a75" stroke-width="2"/>
+<text x="320" y="130" font-size="16" font-weight="700" fill="#fff">Röle Kartı (ESP-01)</text>
+<rect x="320" y="350" width="70" height="80" rx="6" fill="#2fae8a" stroke="#1b7a5f"/>
+<text x="355" y="382" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">IN+</text><text x="355" y="417" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">IN−</text>
+<path d="M186 275 H260 V376 H320" fill="none" stroke="#d6332f" stroke-width="4"/>
+<path d="M186 340 H245 V411 H320" fill="none" stroke="#222" stroke-width="4"/>
+<rect x="430" y="160" width="110" height="80" rx="6" fill="#2b6cc4" stroke="#123a75"/><text x="485" y="206" text-anchor="middle" font-size="15" fill="#fff" font-weight="700">Röle 1</text>
+<rect x="560" y="160" width="70" height="80" rx="6" fill="#2fae8a" stroke="#1b7a5f"/>
+<text x="595" y="181" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">NO</text>
+<text x="595" y="205" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">COM</text>
+<text x="595" y="229" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">NC</text>
+<rect x="430" y="270" width="110" height="80" rx="6" fill="#2b6cc4" stroke="#123a75"/><text x="485" y="316" text-anchor="middle" font-size="15" fill="#fff" font-weight="700">Röle 2</text>
+<rect x="560" y="270" width="70" height="80" rx="6" fill="#2fae8a" stroke="#1b7a5f"/>
+<text x="595" y="291" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">NO</text>
+<text x="595" y="315" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">COM</text>
+<text x="595" y="339" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">NC</text>
+<rect x="430" y="380" width="110" height="80" rx="6" fill="#2b6cc4" stroke="#123a75"/><text x="485" y="426" text-anchor="middle" font-size="15" fill="#fff" font-weight="700">Röle 3</text>
+<rect x="560" y="380" width="70" height="80" rx="6" fill="#2fae8a" stroke="#1b7a5f"/>
+<text x="595" y="401" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">NO</text>
+<text x="595" y="425" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">COM</text>
+<text x="595" y="449" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">NC</text>
+<rect x="430" y="490" width="110" height="80" rx="6" fill="#2b6cc4" stroke="#123a75"/><text x="485" y="536" text-anchor="middle" font-size="15" fill="#fff" font-weight="700">Röle 4</text>
+<rect x="560" y="490" width="70" height="80" rx="6" fill="#2fae8a" stroke="#1b7a5f"/>
+<text x="595" y="511" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">NO</text>
+<text x="595" y="535" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">COM</text>
+<text x="595" y="559" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">NC</text>
+<path d="M260 275 V80 H830" fill="none" stroke="#d6332f" stroke-width="4"/>
+<path d="M830 80 V530" fill="none" stroke="#d6332f" stroke-width="4"/>
+<path d="M630 200 H830" fill="none" stroke="#d6332f" stroke-width="3"/><circle cx="830" cy="200" r="4" fill="#d6332f"/>
+<path d="M630 310 H830" fill="none" stroke="#d6332f" stroke-width="3"/><circle cx="830" cy="310" r="4" fill="#d6332f"/>
+<path d="M630 420 H830" fill="none" stroke="#d6332f" stroke-width="3"/><circle cx="830" cy="420" r="4" fill="#d6332f"/>
+<path d="M630 530 H830" fill="none" stroke="#d6332f" stroke-width="3"/><circle cx="830" cy="530" r="4" fill="#d6332f"/>
+<path d="M630 176 H825 V186 H852" fill="none" stroke="#1f8a5b" stroke-width="3"/>
+<circle cx="880" cy="200" r="30" fill="#f3f7f5" stroke="#16302a" stroke-width="2"/><text x="880" y="205" text-anchor="middle" font-size="14" font-weight="700">P1</text>
+<text x="846" y="180" font-size="13" fill="#1f8a5b" font-weight="700">+</text>
+<path d="M908 186 H928 V192" fill="none" stroke="#666" stroke-width="2"/>
+<polygon points="920,206 936,206 928,194" fill="#666"/><line x1="919" y1="193" x2="937" y2="193" stroke="#666" stroke-width="3"/>
+<path d="M928 206 V214 H908" fill="none" stroke="#666" stroke-width="2"/>
+<path d="M880 230 V246 H960" fill="none" stroke="#222" stroke-width="3"/>
+<path d="M630 286 H825 V296 H852" fill="none" stroke="#1f8a5b" stroke-width="3"/>
+<circle cx="880" cy="310" r="30" fill="#f3f7f5" stroke="#16302a" stroke-width="2"/><text x="880" y="315" text-anchor="middle" font-size="14" font-weight="700">P2</text>
+<text x="846" y="290" font-size="13" fill="#1f8a5b" font-weight="700">+</text>
+<path d="M908 296 H928 V302" fill="none" stroke="#666" stroke-width="2"/>
+<polygon points="920,316 936,316 928,304" fill="#666"/><line x1="919" y1="303" x2="937" y2="303" stroke="#666" stroke-width="3"/>
+<path d="M928 316 V324 H908" fill="none" stroke="#666" stroke-width="2"/>
+<path d="M880 340 V356 H960" fill="none" stroke="#222" stroke-width="3"/>
+<path d="M630 396 H825 V406 H852" fill="none" stroke="#1f8a5b" stroke-width="3"/>
+<circle cx="880" cy="420" r="30" fill="#f3f7f5" stroke="#16302a" stroke-width="2"/><text x="880" y="425" text-anchor="middle" font-size="14" font-weight="700">P3</text>
+<text x="846" y="400" font-size="13" fill="#1f8a5b" font-weight="700">+</text>
+<path d="M908 406 H928 V412" fill="none" stroke="#666" stroke-width="2"/>
+<polygon points="920,426 936,426 928,414" fill="#666"/><line x1="919" y1="413" x2="937" y2="413" stroke="#666" stroke-width="3"/>
+<path d="M928 426 V434 H908" fill="none" stroke="#666" stroke-width="2"/>
+<path d="M880 450 V466 H960" fill="none" stroke="#222" stroke-width="3"/>
+<path d="M630 506 H825 V516 H852" fill="none" stroke="#1f8a5b" stroke-width="3"/>
+<circle cx="880" cy="530" r="30" fill="#f3f7f5" stroke="#16302a" stroke-width="2"/><text x="880" y="535" text-anchor="middle" font-size="14" font-weight="700">P4</text>
+<text x="846" y="510" font-size="13" fill="#1f8a5b" font-weight="700">+</text>
+<path d="M908 516 H928 V522" fill="none" stroke="#666" stroke-width="2"/>
+<polygon points="920,536 936,536 928,524" fill="#666"/><line x1="919" y1="523" x2="937" y2="523" stroke="#666" stroke-width="3"/>
+<path d="M928 536 V544 H908" fill="none" stroke="#666" stroke-width="2"/>
+<path d="M880 560 V576 H960" fill="none" stroke="#222" stroke-width="3"/>
+<path d="M960 246 V620 H245 V340" fill="none" stroke="#222" stroke-width="4"/>
+<line x1="40" y1="665" x2="80" y2="665" stroke="#d6332f" stroke-width="4"/><text x="88" y="670" font-size="13">+12V</text>
+<line x1="150" y1="665" x2="190" y2="665" stroke="#222" stroke-width="4"/><text x="198" y="670" font-size="13">− (GND)</text>
+<line x1="290" y1="665" x2="330" y2="665" stroke="#1f8a5b" stroke-width="3"/><text x="338" y="670" font-size="13">Röle NO → pompa +</text>
+<text x="520" y="670" font-size="13" fill="#444">Diyot (1N4007/1N5819): çizgili uç pompanın + ucuna</text>
+</svg>
