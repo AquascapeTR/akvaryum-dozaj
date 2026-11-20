@@ -1,5 +1,5 @@
 # =====================================================================
-#  AquascapeTR - Otomatik Gubre Dozaj Sistemi  v1.1.0
+#  AquascapeTR - Otomatik Gubre Dozaj Sistemi  v1.1.1
 #  Donanim: ESP32 (veya ESP32-S3) gelistirme karti + 4 kanal role modulu
 #  Pompa 1: GPIO18 | Pompa 2: GPIO17 | Pompa 3: GPIO16 | Pompa 4: GPIO4
 #  Role modulu: VCC -> 3V3, JD-VCC -> 5V (jumper cikarilir), GND -> GND
@@ -26,7 +26,7 @@ esphome:
   friendly_name: AquascapeTR Dozaj
   project:
     name: aquascapetr.akvaryum-dozaj
-    version: "1.1.0"
+    version: "1.1.1"
   on_boot:
     priority: -100
     then:
@@ -51,6 +51,11 @@ logger:
 web_server:
   port: 80
   version: 3
+  # Sadece AquascapeTR arayuzu yuklenir; ESPHome'un varsayilan arayuzu ve
+  # internetten dosya cekilmez (local: false + bos url'ler)
+  local: false
+  js_url: ""
+  css_url: ""
   js_include: web/aquascapetr.js
   log: false
 
