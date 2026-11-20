@@ -87,22 +87,22 @@ script:
     mode: restart
     then:
       - lambda: |-
-                id(uart_bus).write_array({0xA0, 0x01, 0x00, 0xA1});
-                id(uart_bus).write_array({0xA0, 0x02, 0x00, 0xA2});
-                id(uart_bus).write_array({0xA0, 0x03, 0x00, 0xA3});
-                id(uart_bus).write_array({0xA0, 0x04, 0x00, 0xA4});
+                { const uint8_t _c[4] = {0xA0, 0x01, 0x00, 0xA1}; id(uart_bus).write_array(_c, 4); }
+                { const uint8_t _c[4] = {0xA0, 0x02, 0x00, 0xA2}; id(uart_bus).write_array(_c, 4); }
+                { const uint8_t _c[4] = {0xA0, 0x03, 0x00, 0xA3}; id(uart_bus).write_array(_c, 4); }
+                { const uint8_t _c[4] = {0xA0, 0x04, 0x00, 0xA4}; id(uart_bus).write_array(_c, 4); }
       - delay: 100ms
       - lambda: |-
-                id(uart_bus).write_array({0xA0, 0x01, 0x00, 0xA1});
-                id(uart_bus).write_array({0xA0, 0x02, 0x00, 0xA2});
-                id(uart_bus).write_array({0xA0, 0x03, 0x00, 0xA3});
-                id(uart_bus).write_array({0xA0, 0x04, 0x00, 0xA4});
+                { const uint8_t _c[4] = {0xA0, 0x01, 0x00, 0xA1}; id(uart_bus).write_array(_c, 4); }
+                { const uint8_t _c[4] = {0xA0, 0x02, 0x00, 0xA2}; id(uart_bus).write_array(_c, 4); }
+                { const uint8_t _c[4] = {0xA0, 0x03, 0x00, 0xA3}; id(uart_bus).write_array(_c, 4); }
+                { const uint8_t _c[4] = {0xA0, 0x04, 0x00, 0xA4}; id(uart_bus).write_array(_c, 4); }
       - delay: 100ms
       - lambda: |-
-                id(uart_bus).write_array({0xA0, 0x01, 0x00, 0xA1});
-                id(uart_bus).write_array({0xA0, 0x02, 0x00, 0xA2});
-                id(uart_bus).write_array({0xA0, 0x03, 0x00, 0xA3});
-                id(uart_bus).write_array({0xA0, 0x04, 0x00, 0xA4});
+                { const uint8_t _c[4] = {0xA0, 0x01, 0x00, 0xA1}; id(uart_bus).write_array(_c, 4); }
+                { const uint8_t _c[4] = {0xA0, 0x02, 0x00, 0xA2}; id(uart_bus).write_array(_c, 4); }
+                { const uint8_t _c[4] = {0xA0, 0x03, 0x00, 0xA3}; id(uart_bus).write_array(_c, 4); }
+                { const uint8_t _c[4] = {0xA0, 0x04, 0x00, 0xA4}; id(uart_bus).write_array(_c, 4); }
       - lambda: 'id(aktif_kanal) = 0;'
 
   # Doz verme: sirayla calisir (queued), aralarinda 10 sn bekler
@@ -119,7 +119,7 @@ script:
           then:
             - lambda: |-
                 id(aktif_kanal) = kanal;
-                id(uart_bus).write_array({0xA0, (uint8_t) kanal, 0x01, (uint8_t) (0xA1 + kanal)});
+                { const uint8_t _c[4] = {0xA0, (uint8_t) kanal, 0x01, (uint8_t) (0xA1 + kanal)}; id(uart_bus).write_array(_c, 4); }
                 ESP_LOGI("doz", "Kanal %d: %.1f ml basiliyor", kanal, ml);
             - delay: !lambda |-
                 float hiz = 2.0f;
@@ -171,7 +171,7 @@ script:
           then:
             - lambda: |-
                 id(aktif_kanal) = kanal;
-                id(uart_bus).write_array({0xA0, (uint8_t) kanal, 0x01, (uint8_t) (0xA1 + kanal)});
+                { const uint8_t _c[4] = {0xA0, (uint8_t) kanal, 0x01, (uint8_t) (0xA1 + kanal)}; id(uart_bus).write_array(_c, 4); }
                 ESP_LOGI("kal", "Kanal %d kalibrasyon: 30 sn", kanal);
             - delay: 30s
             - script.execute: tum_kapat
@@ -185,10 +185,10 @@ interval:
             lambda: 'return !id(doz).is_running() && !id(kalibrasyon).is_running() && !id(tum_kapat).is_running();'
           then:
             - lambda: |-
-                id(uart_bus).write_array({0xA0, 0x01, 0x00, 0xA1});
-                id(uart_bus).write_array({0xA0, 0x02, 0x00, 0xA2});
-                id(uart_bus).write_array({0xA0, 0x03, 0x00, 0xA3});
-                id(uart_bus).write_array({0xA0, 0x04, 0x00, 0xA4});
+                { const uint8_t _c[4] = {0xA0, 0x01, 0x00, 0xA1}; id(uart_bus).write_array(_c, 4); }
+                { const uint8_t _c[4] = {0xA0, 0x02, 0x00, 0xA2}; id(uart_bus).write_array(_c, 4); }
+                { const uint8_t _c[4] = {0xA0, 0x03, 0x00, 0xA3}; id(uart_bus).write_array(_c, 4); }
+                { const uint8_t _c[4] = {0xA0, 0x04, 0x00, 0xA4}; id(uart_bus).write_array(_c, 4); }
 
 # ---------------------------------------------------------------------
 #  Genel ayarlar ve durum
