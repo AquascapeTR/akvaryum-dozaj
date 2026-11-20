@@ -22,6 +22,7 @@ ESP32'yi USB ile bilgisayara takıp oradaki **"Yazılımı Yükle"** butonuna ba
 - AquascapeTR arayüzü: kanal başına renkli kart, şişe seviyesi, pompa adlandırma, tek dokunuşla kalibrasyon
 - Ayarlar kartın hafızasında; elektrik kesilince kaybolmaz
 - Yazılım güncellemesi kablosuz (web sayfasından)
+- Bağlantı bekçisi: modem erişimini her dakika kontrol eder, Wi-Fi'ı yeniden kurar, gerekirse cihazı yeniden başlatır
 
 ### Güvenlik
 - Pompalar asla aynı anda çalışmaz; sırayla ve 10 sn arayla

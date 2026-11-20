@@ -1,5 +1,5 @@
 # =====================================================================
-#  AquascapeTR - Otomatik Gubre Dozaj Sistemi  v2.0.0
+#  AquascapeTR - Otomatik Gubre Dozaj Sistemi  v2.1.0
 #  Donanim: ESP32 (veya ESP32-S3) gelistirme karti + 4 kanal role modulu
 #  Pompa 1: GPIO18 | Pompa 2: GPIO17 | Pompa 3: GPIO16 | Pompa 4: GPIO4
 #  Role modulu: VCC -> 3V3, JD-VCC -> 5V (jumper cikarilir), GND -> GND
@@ -24,9 +24,11 @@
 esphome:
   name: aquascapetr
   friendly_name: AquascapeTR Dozaj
+  includes:
+    - baglanti.h
   project:
     name: aquascapetr.akvaryum-dozaj
-    version: "2.0.0"
+    version: "2.1.0"
   on_boot:
     priority: -100
     then:
@@ -68,11 +70,24 @@ ota:
 
 # Wi-Fi bilgisi yazilimda YOK: kurulum telefondan, kurulum agi uzerinden yapilir
 wifi:
+  # Guc tasarrufu kapali: ESP32'de kopmalari belirgin sekilde azaltir
+  power_save_mode: none
+  # Wi-Fi'a 5 dk baglanamazsa cihaz kendini yeniden baslatir
+  reboot_timeout: 5min
   ap:
     ssid: "AquascapeTR Kurulum"
     password: "dozaj1234"
   on_connect:
     - script.execute: tum_kapat
+    - lambda: |-
+        if (id(kopma_bas) != 0) {
+          id(son_kopma_sure) = (millis() - id(kopma_bas)) / 1000;
+          id(son_kopma_an) = millis();
+          id(kopma_bas) = 0;
+        }
+  on_disconnect:
+    - lambda: |-
+        if (id(kopma_bas) == 0) { id(kopma_bas) = millis(); id(kopma_sayisi) += 1; }
 
 captive_portal:
 
@@ -132,6 +147,25 @@ globals:
   - id: aktif_kanal
     type: int
     initial_value: '0'
+  # --- baglanti bekcisi ---
+  - id: kopma_sayisi
+    type: int
+    initial_value: '0'
+  - id: kopma_bas
+    type: uint32_t
+    initial_value: '0'
+  - id: son_kopma_sure
+    type: uint32_t
+    initial_value: '0'
+  - id: son_kopma_an
+    type: uint32_t
+    initial_value: '0'
+  - id: ping_hata
+    type: int
+    initial_value: '0'
+  - id: modem_durum
+    type: int
+    initial_value: '-1'
 
 # ---------------------------------------------------------------------
 #  Scriptler
@@ -242,6 +276,33 @@ script:
 
 # Bekci: hicbir is yokken roleleri periyodik olarak kapali tut
 interval:
+  # Baglanti bekcisi: her dakika modeme ping atar.
+  # 3 dk ust uste yanit yoksa Wi-Fi yeniden kurulur, 10 dk olursa
+  # (pompa calismiyorsa) cihaz yeniden baslatilir.
+  - interval: 60s
+    then:
+      - lambda: |-
+          if (!wifi::global_wifi_component->is_connected()) { id(modem_durum) = -1; return; }
+          int r = atr::ping_sonuc;
+          atr::ping_sonuc = -1;
+          if (r == 1) { id(ping_hata) = 0; id(modem_durum) = 1; }
+          else if (r == 0) { id(ping_hata) += 1; id(modem_durum) = 0;
+            ESP_LOGW("bekci", "Modem yanit vermiyor (%d. dakika)", id(ping_hata)); }
+          atr::modem_ping_baslat();
+      - if:
+          condition:
+            lambda: 'return id(ping_hata) == 3;'
+          then:
+            - logger.log: "Bekci: Wi-Fi yeniden kuruluyor"
+            - wifi.disable:
+            - delay: 3s
+            - wifi.enable:
+      - if:
+          condition:
+            lambda: 'return id(ping_hata) >= 10 && !id(doz).is_running() && !id(kalibrasyon).is_running();'
+          then:
+            - logger.log: "Bekci: baglanti duzelmedi, yeniden baslatiliyor"
+            - lambda: 'App.safe_reboot();'
   - interval: 15s
     then:
       - if:
@@ -263,9 +324,43 @@ sensor:
     update_interval: 120s
   - platform: uptime
     name: "Çalışma Süresi"
-    update_interval: 300s
+    update_interval: 60s
+
+  - platform: template
+    name: "Bağlantı Kopması"
+    icon: mdi:wifi-alert
+    accuracy_decimals: 0
+    update_interval: 30s
+    entity_category: diagnostic
+    lambda: 'return id(kopma_sayisi);'
+
+debug:
+  update_interval: 3600s
 
 text_sensor:
+  - platform: debug
+    reset_reason:
+      name: "Son Başlatma Nedeni"
+  - platform: template
+    name: "Modem Erişimi"
+    icon: mdi:router-wireless
+    update_interval: 30s
+    entity_category: diagnostic
+    lambda: |-
+      switch (id(modem_durum)) {
+        case 1: return std::string("Erişilebilir");
+        case 0: return std::string("Yanıt yok (" + to_string(id(ping_hata)) + " dk)");
+        default: return std::string("Ölçülüyor");
+      }
+  - platform: template
+    name: "Son Kopma"
+    icon: mdi:history
+    update_interval: 30s
+    entity_category: diagnostic
+    lambda: |-
+      if (id(son_kopma_an) == 0) return std::string("Yok");
+      uint32_t once = (millis() - id(son_kopma_an)) / 60000;
+      return to_string(once) + " dk önce, " + to_string(id(son_kopma_sure)) + " sn sürdü";
   - platform: template
     name: "Aktif Pompa"
     update_interval: 2s
