@@ -227,6 +227,7 @@ function baglaOlaylar() {
     if (d.durdur !== undefined) { await press("Acil Durdur"); return toast("Tüm pompalar durduruldu"); }
     if (d.std !== undefined) { document.body.classList.add("atr-std"); return; }
     if (d.ayar !== undefined) return ayarlar();
+    if (d.ota !== undefined) return ota();
     if (d.yenile !== undefined) { if (confirm("Cihaz yeniden başlatılsın mı?")) { await press("Yeniden Başlat"); toast("Yeniden başlatılıyor"); } return; }
     if (t.classList.contains("a-card")) return panel(+t.dataset.p);
   });
@@ -250,8 +251,23 @@ function ayarlar() {
   <div class="a-sec"><h4>Cihaz</h4>
     <div class="a-btns"><button class="a-btn ghost" data-yenile>Yeniden başlat</button>
 </div>
-    <div class="a-hint">Yazılım sürümü ${VERSION} · Güncelleme ve kurulum: aquascapetr.github.io/akvaryum-dozaj</div></div>`;
+    <div class="a-hint">Yazılım sürümü ${VERSION} · Güncelleme ve kurulum: aquascapetr.github.io/akvaryum-dozaj</div></div>
+  <div class="a-sec"><h4>Yazılım güncelle (kablosuz)</h4><div class="a-box">
+    <div class="a-f">Güncelleme dosyası (.ota.bin)<input type="file" id="a-ota" accept=".bin" style="width:200px;text-align:left"></div></div>
+    <button class="a-btn ghost" data-ota>Yükle</button><div class="a-hint" id="a-otad"></div></div>`;
   $("#a-sheet").classList.add("open");
+}
+
+function ota() {
+  const f = $("#a-ota").files[0], o = $("#a-otad");
+  if (!f) return toast("Önce .ota.bin dosyasını seç");
+  if (!confirm(`${f.name} yüklensin mi? Yükleme sırasında pompalar çalışmaz.`)) return;
+  const fd = new FormData(); fd.append("update", f, f.name);
+  const x = new XMLHttpRequest(); x.open("POST", "/update");
+  x.upload.onprogress = (e) => { if (e.lengthComputable) o.textContent = `Yükleniyor… %${Math.round(e.loaded / e.total * 100)}`; };
+  x.onload = () => { o.textContent = x.status === 200 ? "Güncelleme tamam, cihaz yeniden başlıyor…" : "Güncelleme başarısız (" + x.status + ")"; };
+  x.onerror = () => { o.textContent = "Yükleme sırasında bağlantı koptu"; };
+  x.send(fd);
 }
 
 // ---------- canli veri ----------
