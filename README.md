@@ -2,13 +2,13 @@
 
 **AquascapeTR** · [YouTube](https://www.youtube.com/@AquascapeTR)
 
-4 kanallı, ml bazlı, zamanlamalı akvaryum gübre dozaj sistemi. Ucuz bir ESP-01 Wi-Fi röle kartı ve 12V peristaltik pompalarla yapılır. **Home Assistant veya başka bir sunucu gerekmez**; kontrol, kartın kendi web sayfasından yapılır.
+4 kanallı, ml bazlı, zamanlamalı akvaryum gübre dozaj sistemi. Bir ESP32 geliştirme kartı, hazır bir 4 kanal röle modülü ve 12V peristaltik pompalarla, lehimsiz yapılır. **Home Assistant veya başka bir sunucu gerekmez**; kontrol, kartın kendi web sayfasından yapılır.
 
 ## 👉 Kurulum sayfası
 
 **https://aquascapetr.github.io/akvaryum-dozaj/**
 
-Yazılımı oradaki **"Yazılımı Yükle"** butonuyla, tarayıcıdan (Chrome/Edge) doğrudan karta yükleyebilirsiniz. Program kurmanıza, kod yazmanıza gerek yok.
+ESP32'yi USB ile bilgisayara takıp oradaki **"Yazılımı Yükle"** butonuna basmanız yeterli (Chrome/Edge). Program kurmanıza, kod yazmanıza gerek yok. ESP32 ve ESP32-S3 kartları otomatik tanınır.
 
 ## Özellikler
 
@@ -30,29 +30,38 @@ Yazılımı oradaki **"Yazılımı Yükle"** butonuyla, tarayıcıdan (Chrome/Ed
 
 | Parça | Not |
 |---|---|
-| ESP-01 4 Kanal **12V** Wi-Fi Röle Modülü (LC Technology tipi) | 12V versiyon olmalı |
-| USB ESP-01 adaptörü (CH340) | Sadece ilk yükleme için |
+| ESP32 geliştirme kartı (USB'li, CP2102 veya CH340) | ESP32-S3 de olur |
+| 4 kanal 5V röle modülü (optokuplörlü, JD-VCC jumper'lı) | |
+| 12V → 5V USB dönüştürücü (en az 2A) | ESP32'yi 12V adaptörden besler |
 | 4 × 12V DC peristaltik pompa | Örn. Kamoer |
 | 12V adaptör, en az 2A | |
 | 4 × diyot (1N4007 veya 1N5819) | Pompa başına bir tane |
-| Kablo, silikon hortum, gübre şişeleri | |
+| Jumper kablolar, silikon hortum, gübre şişeleri | Lehim gerekmez |
 
 ## Bağlantı şeması
 
 ![Bağlantı şeması](docs/baglanti-semasi.svg)
 
-- 12V (+) → kartın `IN+` girişi ve her rölenin `COM` ucu
-- Rölenin `NO` ucu → pompanın (+) ucu
-- Pompanın (−) ucu → 12V (−)
+| ESP32 | Röle modülü |
+|---|---|
+| 3V3 | VCC |
+| 5V | JD-VCC (**jumper çıkarılır**) |
+| GND | GND |
+| GPIO18 | IN1 (Pompa 1) |
+| GPIO17 | IN2 (Pompa 2) |
+| GPIO16 | IN3 (Pompa 3) |
+| GPIO4 | IN4 (Pompa 4) |
+
+- 12V (+) → her rölenin `COM` ucu; rölenin `NO` ucu → pompanın (+) ucu; pompanın (−) ucu → 12V (−)
 - Diyot pompanın uçlarına: **çizgili uç (+) tarafa**
+- ESP32'yi 12V→5V USB dönüştürücüyle besleyin
 
 ## Kısa kurulum
 
-1. ESP-01'i adaptöre tak, GPIO0–GND'yi kısa devre ederken USB'ye tak (yükleme modu).
-2. [Kurulum sayfasından](https://aquascapetr.github.io/akvaryum-dozaj/) yazılımı yükle.
-3. ESP-01'i karta geri tak, kartı 12V ile çalıştır.
-4. Telefonla **Dozaj Kurulum** ağına bağlan (şifre `dozaj1234`), ev Wi-Fi'ını seç.
-5. **http://akvaryum-dozaj.local** adresinden kalibrasyon ve doz ayarlarını yap.
+1. ESP32'yi USB ile bilgisayara tak, [kurulum sayfasından](https://aquascapetr.github.io/akvaryum-dozaj/) yazılımı yükle.
+2. Bağlantıları şemaya göre yap.
+3. Telefonla **Dozaj Kurulum** ağına bağlan (şifre `dozaj1234`), ev Wi-Fi'ını seç.
+4. **http://akvaryum-dozaj.local** adresinden kalibrasyon ve doz ayarlarını yap.
 
 > Kontrol paneli şifresizdir; yalnızca ev ağınızdan erişilebilir.
 

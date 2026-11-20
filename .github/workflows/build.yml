@@ -25,22 +25,40 @@ jobs:
       - name: Depoyu al
         uses: actions/checkout@v4
 
-      - name: ESPHome ile derle
-        id: esphome
+      - name: ESPHome ile derle (ESP32)
+        id: esp32
         uses: esphome/build-action@v7.0.0
         with:
           yaml-file: firmware/akvaryum-dozaj.yaml
           complete-manifest: true
+          substitutions: |
+            board=esp32dev
+            variant=esp32
+
+      - name: ESPHome ile derle (ESP32-S3)
+        id: esp32s3
+        uses: esphome/build-action@v7.0.0
+        with:
+          yaml-file: firmware/akvaryum-dozaj.yaml
+          complete-manifest: true
+          substitutions: |
+            board=esp32-s3-devkitc-1
+            variant=esp32s3
 
       - name: Kurulum sayfasını hazırla
         run: |
+          set -e
           mkdir -p site/firmware
           cp -r docs/* site/
-          cp "${{ steps.esphome.outputs.name }}"/* site/firmware/
-          rm -f site/firmware/*.elf
-          # Sabit isimli kopyalar (manuel indirme linkleri için)
-          cp site/firmware/*.factory.bin site/firmware/akvaryum-dozaj.factory.bin 2>/dev/null || true
-          cp site/firmware/*.ota.bin site/firmware/akvaryum-dozaj.ota.bin 2>/dev/null || true
+          for d in "${{ steps.esp32.outputs.name }}" "${{ steps.esp32s3.outputs.name }}"; do
+            ls -la "$d"
+            cp "$d"/*.bin site/firmware/
+          done
+          # Iki kartin manifestini tek dosyada birlestir (sayfa karti otomatik tanir)
+          jq -s '.[0] + {builds: (.[0].builds + .[1].builds)}' \
+            "${{ steps.esp32.outputs.name }}/manifest.json" \
+            "${{ steps.esp32s3.outputs.name }}/manifest.json" > site/firmware/manifest.json
+          cat site/firmware/manifest.json
           ls -la site/firmware
 
       - name: Sayfa paketini yükle

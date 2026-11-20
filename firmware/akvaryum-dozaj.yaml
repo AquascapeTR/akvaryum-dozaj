@@ -1,6 +1,8 @@
 # =====================================================================
 #  AquascapeTR - Otomatik Gubre Dozaj Sistemi  v1.0.0
-#  Kart: LC Technology ESP-01 4 Kanal 12V Wi-Fi Role Modulu
+#  Donanim: ESP32 (veya ESP32-S3) gelistirme karti + 4 kanal role modulu
+#  Pompa 1: GPIO18 | Pompa 2: GPIO17 | Pompa 3: GPIO16 | Pompa 4: GPIO4
+#  Role modulu: VCC -> 3V3, JD-VCC -> 5V (jumper cikarilir), GND -> GND
 #  https://github.com/AquascapeTR/akvaryum-dozaj
 #  https://www.youtube.com/@AquascapeTR
 #
@@ -11,8 +13,7 @@
 #  - Ayarlar kartin hafizasinda saklanir, elektrik kesilince kaybolmaz.
 #
 #  Guvenlik:
-#   - Role kartinin kendi islemcisi roleyi acik tutar; bu yuzden her
-#     "kapat" komutu 3 kez gonderilir.
+#   - Pompa kapatma komutu 3 kez tekrarlanir.
 #   - Hicbir pompa calismiyorken 15 sn'de bir "hepsi kapali" gonderilir.
 #   - Acilista tum roleler kapatilir.
 #   - Tek doz en fazla 'Maks. Pompa Suresi' kadar surer.
@@ -32,16 +33,18 @@ esphome:
       - delay: 1s
       - script.execute: tum_kapat
 
-esp8266:
-  board: esp01_1m
-  restore_from_flash: true
+substitutions:
+  board: esp32dev
+  variant: esp32
+
+esp32:
+  board: ${board}
+  variant: ${variant}
 
 preferences:
   flash_write_interval: 5min
 
-# Seri port role kartina ayrildigi icin seri log kapali
 logger:
-  baud_rate: 0
 
 web_server:
   port: 80
@@ -56,18 +59,25 @@ wifi:
   ap:
     ssid: "Dozaj Kurulum"
     password: "dozaj1234"
-  # Kartin islemcisi calismaya baslamak icin bu mesajlari bekliyor
   on_connect:
-    - uart.write: "WIFI CONNECTED\r\nWIFI GOT IP\r\n"
     - script.execute: tum_kapat
 
 captive_portal:
 
-uart:
-  id: uart_bus
-  tx_pin: GPIO1
-  rx_pin: GPIO3
-  baud_rate: 115200
+# Role modulu dusuk seviyede tetiklenir (LOW = acik), bu yuzden inverted
+output:
+  - platform: gpio
+    id: pompa_1
+    pin: {number: GPIO18, inverted: true}
+  - platform: gpio
+    id: pompa_2
+    pin: {number: GPIO17, inverted: true}
+  - platform: gpio
+    id: pompa_3
+    pin: {number: GPIO16, inverted: true}
+  - platform: gpio
+    id: pompa_4
+    pin: {number: GPIO4, inverted: true}
 
 time:
   - platform: sntp
@@ -87,22 +97,22 @@ script:
     mode: restart
     then:
       - lambda: |-
-                { const uint8_t _c[4] = {0xA0, 0x01, 0x00, 0xA1}; id(uart_bus).write_array(_c, 4); }
-                { const uint8_t _c[4] = {0xA0, 0x02, 0x00, 0xA2}; id(uart_bus).write_array(_c, 4); }
-                { const uint8_t _c[4] = {0xA0, 0x03, 0x00, 0xA3}; id(uart_bus).write_array(_c, 4); }
-                { const uint8_t _c[4] = {0xA0, 0x04, 0x00, 0xA4}; id(uart_bus).write_array(_c, 4); }
+                id(pompa_1).turn_off();
+                id(pompa_2).turn_off();
+                id(pompa_3).turn_off();
+                id(pompa_4).turn_off();
       - delay: 100ms
       - lambda: |-
-                { const uint8_t _c[4] = {0xA0, 0x01, 0x00, 0xA1}; id(uart_bus).write_array(_c, 4); }
-                { const uint8_t _c[4] = {0xA0, 0x02, 0x00, 0xA2}; id(uart_bus).write_array(_c, 4); }
-                { const uint8_t _c[4] = {0xA0, 0x03, 0x00, 0xA3}; id(uart_bus).write_array(_c, 4); }
-                { const uint8_t _c[4] = {0xA0, 0x04, 0x00, 0xA4}; id(uart_bus).write_array(_c, 4); }
+                id(pompa_1).turn_off();
+                id(pompa_2).turn_off();
+                id(pompa_3).turn_off();
+                id(pompa_4).turn_off();
       - delay: 100ms
       - lambda: |-
-                { const uint8_t _c[4] = {0xA0, 0x01, 0x00, 0xA1}; id(uart_bus).write_array(_c, 4); }
-                { const uint8_t _c[4] = {0xA0, 0x02, 0x00, 0xA2}; id(uart_bus).write_array(_c, 4); }
-                { const uint8_t _c[4] = {0xA0, 0x03, 0x00, 0xA3}; id(uart_bus).write_array(_c, 4); }
-                { const uint8_t _c[4] = {0xA0, 0x04, 0x00, 0xA4}; id(uart_bus).write_array(_c, 4); }
+                id(pompa_1).turn_off();
+                id(pompa_2).turn_off();
+                id(pompa_3).turn_off();
+                id(pompa_4).turn_off();
       - lambda: 'id(aktif_kanal) = 0;'
 
   # Doz verme: sirayla calisir (queued), aralarinda 10 sn bekler
@@ -119,7 +129,12 @@ script:
           then:
             - lambda: |-
                 id(aktif_kanal) = kanal;
-                { const uint8_t _c[4] = {0xA0, (uint8_t) kanal, 0x01, (uint8_t) (0xA1 + kanal)}; id(uart_bus).write_array(_c, 4); }
+                switch (kanal) {
+                  case 1: id(pompa_1).turn_on(); break;
+                  case 2: id(pompa_2).turn_on(); break;
+                  case 3: id(pompa_3).turn_on(); break;
+                  case 4: id(pompa_4).turn_on(); break;
+                }
                 ESP_LOGI("doz", "Kanal %d: %.1f ml basiliyor", kanal, ml);
             - delay: !lambda |-
                 float hiz = 2.0f;
@@ -171,7 +186,12 @@ script:
           then:
             - lambda: |-
                 id(aktif_kanal) = kanal;
-                { const uint8_t _c[4] = {0xA0, (uint8_t) kanal, 0x01, (uint8_t) (0xA1 + kanal)}; id(uart_bus).write_array(_c, 4); }
+                switch (kanal) {
+                  case 1: id(pompa_1).turn_on(); break;
+                  case 2: id(pompa_2).turn_on(); break;
+                  case 3: id(pompa_3).turn_on(); break;
+                  case 4: id(pompa_4).turn_on(); break;
+                }
                 ESP_LOGI("kal", "Kanal %d kalibrasyon: 30 sn", kanal);
             - delay: 30s
             - script.execute: tum_kapat
@@ -185,10 +205,10 @@ interval:
             lambda: 'return !id(doz).is_running() && !id(kalibrasyon).is_running() && !id(tum_kapat).is_running();'
           then:
             - lambda: |-
-                { const uint8_t _c[4] = {0xA0, 0x01, 0x00, 0xA1}; id(uart_bus).write_array(_c, 4); }
-                { const uint8_t _c[4] = {0xA0, 0x02, 0x00, 0xA2}; id(uart_bus).write_array(_c, 4); }
-                { const uint8_t _c[4] = {0xA0, 0x03, 0x00, 0xA3}; id(uart_bus).write_array(_c, 4); }
-                { const uint8_t _c[4] = {0xA0, 0x04, 0x00, 0xA4}; id(uart_bus).write_array(_c, 4); }
+                id(pompa_1).turn_off();
+                id(pompa_2).turn_off();
+                id(pompa_3).turn_off();
+                id(pompa_4).turn_off();
 
 # ---------------------------------------------------------------------
 #  Genel ayarlar ve durum

@@ -55,9 +55,8 @@
   <section>
     <h2>1. Yazılımı karta yükle</h2>
     <ol>
-      <li>ESP-01 modülünü röle kartından çıkar ve <strong>USB ESP-01 adaptörüne</strong> tak.</li>
-      <li>Modülün <strong>GPIO0</strong> ve <strong>GND</strong> uçlarını bir kabloyla birleştirirken adaptörü bilgisayara tak, 2–3 saniye sonra kabloyu çek. (Modül yükleme modunda açılır.)</li>
-      <li>Aşağıdaki butona bas, açılan pencerede adaptörün portunu seç ve <strong>Install</strong> de.</li>
+      <li>ESP32 kartını <strong>veri aktarabilen</strong> bir USB kablosuyla bilgisayara tak. (Bazı şarj kabloları veri taşımaz.)</li>
+      <li>Aşağıdaki butona bas, açılan pencerede kartın portunu seç ve <strong>Install</strong> de. Kart türü (ESP32 / ESP32-S3) otomatik tanınır.</li>
     </ol>
     <div class="install">
       <esp-web-install-button manifest="firmware/manifest.json">
@@ -67,16 +66,19 @@
       </esp-web-install-button>
     </div>
     <div class="note">
-      Port listede görünmüyorsa bilgisayara <strong>CH340 sürücüsünü</strong> kurun. Yükleme “Failed to connect” hatası verirse 2. adımı tekrarlayın.
+      Port listede görünmüyorsa: kablonuzu değiştirin veya kartınızdaki USB çipinin sürücüsünü kurun (<strong>CP210x</strong> ya da <strong>CH340</strong>).<br>
+      “Failed to initialize / connect” hatasında: karttaki <strong>BOOT</strong> butonuna basılı tutarken <strong>Install</strong>'a basın, yükleme başlayınca bırakın.
     </div>
   </section>
 
   <section>
     <h2>2. Kartı bağla</h2>
     <ol>
-      <li>ESP-01'i röle kartına <strong>çıkardığın yönde</strong> geri tak.</li>
-      <li>12V adaptörü <code>IN+</code> / <code>IN−</code> klemensine bağla.</li>
-      <li>12V (+) her rölenin <code>COM</code> ucuna, rölenin <code>NO</code> ucu pompanın (+) ucuna, pompanın (−) ucu adaptörün (−) ucuna.</li>
+      <li><strong>Güç:</strong> 12V adaptörü <em>12V→5V USB dönüştürücüye</em> bağla, dönüştürücünün USB kablosunu ESP32'ye tak.</li>
+      <li><strong>Röle modülü:</strong> üzerindeki <code>JD-VCC</code> jumper'ını çıkar. Sonra:
+        <code>VCC → 3V3</code>, <code>JD-VCC → 5V</code>, <code>GND → GND</code>,
+        <code>IN1 → GPIO18</code>, <code>IN2 → GPIO17</code>, <code>IN3 → GPIO16</code>, <code>IN4 → GPIO4</code>.</li>
+      <li><strong>Pompalar:</strong> 12V (+) her rölenin <code>COM</code> ucuna; rölenin <code>NO</code> ucu pompanın (+) ucuna; pompanın (−) ucu adaptörün (−) ucuna.</li>
       <li>Her pompanın uçlarına bir diyot (1N4007 / 1N5819) bağla: çizgili uç (+) tarafa.</li>
     </ol>
     <p class="links">Ayrıntılı şema: <a href="baglanti-semasi.svg" target="_blank">Bağlantı şeması</a></p>
@@ -104,7 +106,9 @@
 
   <section>
     <h2>Güncelleme</h2>
-    <p>Yeni sürüm çıktığında ESP-01'i sökmen gerekmez: <a class="links" style="color:var(--accent)" href="firmware/akvaryum-dozaj.ota.bin">güncelleme dosyasını (.ota.bin) indir</a>, kontrol panelinin en altındaki <strong>OTA Update</strong> bölümünden yükle.</p>
+    <p>Yeni sürümü yüklemek için iki yol var: kartı bilgisayara takıp yukarıdaki butonu tekrar kullan (ayarlar korunur), ya da kablosuz: güncelleme dosyasını indir
+      (<a style="color:var(--accent)" href="firmware/akvaryum-dozaj-esp32.ota.bin">ESP32</a> /
+      <a style="color:var(--accent)" href="firmware/akvaryum-dozaj-esp32s3.ota.bin">ESP32-S3</a>) ve kontrol panelinin en altındaki <strong>OTA Update</strong> bölümünden yükle.</p>
   </section>
 
   <footer>
