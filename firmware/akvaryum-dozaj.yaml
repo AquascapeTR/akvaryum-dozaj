@@ -1,5 +1,5 @@
 # =====================================================================
-#  AquascapeTR - Otomatik Gubre Dozaj Sistemi  v1.0.0
+#  AquascapeTR - Otomatik Gubre Dozaj Sistemi  v1.1.0
 #  Donanim: ESP32 (veya ESP32-S3) gelistirme karti + 4 kanal role modulu
 #  Pompa 1: GPIO18 | Pompa 2: GPIO17 | Pompa 3: GPIO16 | Pompa 4: GPIO4
 #  Role modulu: VCC -> 3V3, JD-VCC -> 5V (jumper cikarilir), GND -> GND
@@ -7,9 +7,10 @@
 #  https://www.youtube.com/@AquascapeTR
 #
 #  - Home Assistant GEREKMEZ. Kontrol kartin kendi web sayfasindan:
-#      http://akvaryum-dozaj.local
-#  - Ilk aciliste kart "Dozaj Kurulum" adli Wi-Fi agi yayinlar.
-#    Telefonla baglanip (sifre: dozaj1234) kendi Wi-Fi aginizi secin.
+#      http://aquascapetr.local
+#  - Wi-Fi: kurulum sayfasinda yuklemeden hemen sonra ya da
+#    "AquascapeTR Kurulum" agi uzerinden telefondan ayarlanir.
+#    (sifre: dozaj1234)
 #  - Ayarlar kartin hafizasinda saklanir, elektrik kesilince kaybolmaz.
 #
 #  Guvenlik:
@@ -21,11 +22,11 @@
 # =====================================================================
 
 esphome:
-  name: akvaryum-dozaj
-  friendly_name: Akvaryum Dozaj
+  name: aquascapetr
+  friendly_name: AquascapeTR Dozaj
   project:
     name: aquascapetr.akvaryum-dozaj
-    version: "1.0.0"
+    version: "1.1.0"
   on_boot:
     priority: -100
     then:
@@ -46,9 +47,15 @@ preferences:
 
 logger:
 
+# AquascapeTR arayuzu (web/aquascapetr.js) kartin icine gomulur, internet gerekmez
 web_server:
   port: 80
   version: 3
+  js_include: web/aquascapetr.js
+  log: false
+
+# Kurulum sayfasindan (USB uzerinden) Wi-Fi ayari
+improv_serial:
 
 ota:
   - platform: esphome
@@ -57,7 +64,7 @@ ota:
 # Wi-Fi bilgisi yazilimda YOK: kurulum telefondan, kurulum agi uzerinden yapilir
 wifi:
   ap:
-    ssid: "Dozaj Kurulum"
+    ssid: "AquascapeTR Kurulum"
     password: "dozaj1234"
   on_connect:
     - script.execute: tum_kapat
@@ -404,6 +411,104 @@ number:
     optimistic: true
     restore_value: true
     mode: box
+  - platform: template
+    id: hacim_1
+    name: "Pompa 1 Şişe Hacmi"
+    icon: mdi:bottle-tonic
+    unit_of_measurement: ml
+    min_value: 50
+    max_value: 5000
+    step: 10
+    initial_value: 500
+    optimistic: true
+    restore_value: true
+    mode: box
+    entity_category: config
+  - platform: template
+    id: hacim_2
+    name: "Pompa 2 Şişe Hacmi"
+    icon: mdi:bottle-tonic
+    unit_of_measurement: ml
+    min_value: 50
+    max_value: 5000
+    step: 10
+    initial_value: 500
+    optimistic: true
+    restore_value: true
+    mode: box
+    entity_category: config
+  - platform: template
+    id: hacim_3
+    name: "Pompa 3 Şişe Hacmi"
+    icon: mdi:bottle-tonic
+    unit_of_measurement: ml
+    min_value: 50
+    max_value: 5000
+    step: 10
+    initial_value: 500
+    optimistic: true
+    restore_value: true
+    mode: box
+    entity_category: config
+  - platform: template
+    id: hacim_4
+    name: "Pompa 4 Şişe Hacmi"
+    icon: mdi:bottle-tonic
+    unit_of_measurement: ml
+    min_value: 50
+    max_value: 5000
+    step: 10
+    initial_value: 500
+    optimistic: true
+    restore_value: true
+    mode: box
+    entity_category: config
+
+text:
+  - platform: template
+    id: ad_1
+    name: "Pompa 1 Adı"
+    icon: mdi:label-outline
+    optimistic: true
+    restore_value: true
+    initial_value: "Pompa 1"
+    min_length: 0
+    max_length: 20
+    mode: text
+    entity_category: config
+  - platform: template
+    id: ad_2
+    name: "Pompa 2 Adı"
+    icon: mdi:label-outline
+    optimistic: true
+    restore_value: true
+    initial_value: "Pompa 2"
+    min_length: 0
+    max_length: 20
+    mode: text
+    entity_category: config
+  - platform: template
+    id: ad_3
+    name: "Pompa 3 Adı"
+    icon: mdi:label-outline
+    optimistic: true
+    restore_value: true
+    initial_value: "Pompa 3"
+    min_length: 0
+    max_length: 20
+    mode: text
+    entity_category: config
+  - platform: template
+    id: ad_4
+    name: "Pompa 4 Adı"
+    icon: mdi:label-outline
+    optimistic: true
+    restore_value: true
+    initial_value: "Pompa 4"
+    min_length: 0
+    max_length: 20
+    mode: text
+    entity_category: config
 
 switch:
   - platform: template

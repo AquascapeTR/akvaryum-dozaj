@@ -16,7 +16,8 @@ ESP32'yi USB ile bilgisayara takıp oradaki **"Yazılımı Yükle"** butonuna ba
 - Her pompa için ayrı doz saati, otomatik açma/kapama
 - 30 saniyelik test ile kolay kalibrasyon
 - Şişede kalan gübre takibi (her dozda otomatik düşer)
-- Wi-Fi kurulumu telefondan, kurulum ağı üzerinden
+- Wi-Fi kurulumu yükleme sayfasında (veya telefondan, kurulum ağı üzerinden)
+- AquascapeTR arayüzü: kanal başına renkli kart, şişe seviyesi, pompa adlandırma, tek dokunuşla kalibrasyon
 - Ayarlar kartın hafızasında; elektrik kesilince kaybolmaz
 - Yazılım güncellemesi kablosuz (web sayfasından)
 
@@ -58,10 +59,9 @@ ESP32'yi USB ile bilgisayara takıp oradaki **"Yazılımı Yükle"** butonuna ba
 
 ## Kısa kurulum
 
-1. ESP32'yi USB ile bilgisayara tak, [kurulum sayfasından](https://aquascapetr.github.io/akvaryum-dozaj/) yazılımı yükle.
+1. ESP32'yi USB ile bilgisayara tak, [kurulum sayfasından](https://aquascapetr.github.io/akvaryum-dozaj/) yazılımı yükle; ardından aynı sayfada Wi-Fi bilgilerini gir.
 2. Bağlantıları şemaya göre yap.
-3. Telefonla **Dozaj Kurulum** ağına bağlan (şifre `dozaj1234`), ev Wi-Fi'ını seç.
-4. **http://akvaryum-dozaj.local** adresinden kalibrasyon ve doz ayarlarını yap.
+3. **http://aquascapetr.local** adresinden kalibrasyon ve doz ayarlarını yap.
 
 > Kontrol paneli şifresizdir; yalnızca ev ağınızdan erişilebilir.
 

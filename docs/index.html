@@ -56,7 +56,8 @@
     <h2>1. Yazılımı karta yükle</h2>
     <ol>
       <li>ESP32 kartını <strong>veri aktarabilen</strong> bir USB kablosuyla bilgisayara tak. (Bazı şarj kabloları veri taşımaz.)</li>
-      <li>Aşağıdaki butona bas, açılan pencerede kartın portunu seç ve <strong>Install</strong> de. Kart türü (ESP32 / ESP32-S3) otomatik tanınır.</li>
+      <li>Aşağıdaki butona bas, açılan pencerede kartın portunu seç ve <strong>Install</strong> de. Kart türü (ESP32 / ESP32-S3) otomatik tanınır. <strong>“Erase / Cihazı sil”</strong> seçeneğini işaretlemene gerek yok.</li>
+      <li>Yükleme bitince <strong>Next</strong>'e bas: sayfa Wi-Fi ağını ve şifresini sorar. Gir, kaydet — Wi-Fi kurulumu bu kadar.</li>
     </ol>
     <div class="install">
       <esp-web-install-button manifest="firmware/manifest.json">
@@ -85,30 +86,29 @@
   </section>
 
   <section>
-    <h2>3. Wi-Fi kurulumu (telefondan)</h2>
+    <h2>3. Kontrol paneli</h2>
     <ol>
-      <li>Kartı 12V ile çalıştır. Bir dakika içinde <strong>“Dozaj Kurulum”</strong> adlı Wi-Fi ağı görünür.</li>
-      <li>Telefonla bu ağa bağlan. Şifre: <code>dozaj1234</code></li>
-      <li>Açılan sayfada evinin <strong>2.4 GHz</strong> Wi-Fi ağını seç, şifresini gir ve kaydet.</li>
-      <li>Kontrol paneli: <a class="btn" href="http://akvaryum-dozaj.local" style="padding:6px 12px;font-size:.95rem">akvaryum-dozaj.local</a> (açılmazsa modem arayüzünden kartın IP adresine bak).</li>
+      <li>Telefon veya bilgisayar ev Wi-Fi'ına bağlıyken: <a class="btn" href="http://aquascapetr.local" style="padding:6px 12px;font-size:.95rem">aquascapetr.local</a></li>
+      <li>Açılmazsa modem arayüzünde <strong>aquascapetr</strong> cihazının IP adresine bak ve onu yaz.</li>
+      <li>Wi-Fi'ı 1. adımda ayarlamadıysan: kart <strong>“AquascapeTR Kurulum”</strong> adlı bir ağ yayınlar. Telefonla bağlan (şifre <code>dozaj1234</code>), ev ağını seç.</li>
     </ol>
   </section>
 
   <section>
     <h2>4. Kalibrasyon ve ayarlar</h2>
     <ol>
-      <li>Pompanın hortum ucunu boş bir ölçü kabına koy, <strong>“Kalibrasyon 30 sn”</strong> butonuna bas.</li>
-      <li>Biriken miktarı (ml) 30'a böl ve sonucu <strong>“Akış”</strong> alanına yaz. Örn: 57 ml ÷ 30 = 1,9</li>
-      <li>Her pompa için <strong>Doz</strong> (ml) ve <strong>Doz Saati</strong> gir, <strong>Otomatik</strong> anahtarını aç.</li>
-      <li>Şişeyi doldurduğunda <strong>Şişe Kalan</strong> değerini güncelle; her dozda otomatik düşer.</li>
+      <li>Panelde pompanın kartına dokun. Hortum ucunu boş bir ölçü kabına koy, <strong>“30 sn çalıştır”</strong>a bas.</li>
+      <li>Biriken miktarı yaz ve <strong>“Hesapla ve kaydet”</strong>e bas. Akış hızı otomatik hesaplanır.</li>
+      <li>Pompaya bir ad ver (örn. “Azot”), <strong>günlük doz</strong> ve <strong>doz saati</strong>ni gir, <strong>Otomatik</strong>i aç.</li>
+      <li>Şişeyi doldurduğunda <strong>“Şişeyi doldurdum”</strong>a bas; kalan miktar her dozda otomatik düşer.</li>
     </ol>
   </section>
 
   <section>
     <h2>Güncelleme</h2>
     <p>Yeni sürümü yüklemek için iki yol var: kartı bilgisayara takıp yukarıdaki butonu tekrar kullan (ayarlar korunur), ya da kablosuz: güncelleme dosyasını indir
-      (<a style="color:var(--accent)" href="firmware/akvaryum-dozaj-esp32.ota.bin">ESP32</a> /
-      <a style="color:var(--accent)" href="firmware/akvaryum-dozaj-esp32s3.ota.bin">ESP32-S3</a>) ve kontrol panelinin en altındaki <strong>OTA Update</strong> bölümünden yükle.</p>
+      (<a style="color:var(--accent)" href="firmware/aquascapetr-esp32.ota.bin">ESP32</a> /
+      <a style="color:var(--accent)" href="firmware/aquascapetr-esp32s3.ota.bin">ESP32-S3</a>) ve kontrol panelinin en altındaki <strong>OTA Update</strong> bölümünden yükle.</p>
   </section>
 
   <footer>
