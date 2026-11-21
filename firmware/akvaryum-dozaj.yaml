@@ -1,5 +1,5 @@
 # =====================================================================
-#  AquascapeTR - Otomatik Gubre Dozaj Sistemi  v2.2.2
+#  AquascapeTR - Otomatik Gubre Dozaj Sistemi  v2.3.0
 #  Donanim: ESP32 (veya ESP32-S3) gelistirme karti + 4 kanal role modulu
 #  Pompa 1: GPIO18 | Pompa 2: GPIO17 | Pompa 3: GPIO16 | Pompa 4: GPIO4
 #  Role modulu: VCC -> 3V3, JD-VCC -> 5V (jumper cikarilir), GND -> GND
@@ -28,7 +28,7 @@ esphome:
     - baglanti.h
   project:
     name: aquascapetr.akvaryum-dozaj
-    version: "2.2.2"
+    version: "2.3.0"
   on_boot:
     priority: -100
     then:
@@ -101,8 +101,9 @@ update:
 wifi:
   # Guc tasarrufu kapali: ESP32'de kopmalari belirgin sekilde azaltir
   power_save_mode: none
-  # Wi-Fi'a 5 dk baglanamazsa cihaz kendini yeniden baslatir
-  reboot_timeout: 5min
+  # Yeniden baslatma kararini bekci verir (asagida): bilinen ag kaybolursa 5 dk,
+  # cihaz yeni bir yerde hic baglanamadiysa (kurulum agi acik) 30 dk bekler
+  reboot_timeout: 0s
   ap:
     ssid: "AquascapeTR Kurulum"
     password: "dozaj1234"
@@ -195,6 +196,12 @@ globals:
   - id: modem_durum
     type: int
     initial_value: '-1'
+  - id: bagli_oldu
+    type: bool
+    initial_value: 'false'
+  - id: kopuk_dk
+    type: int
+    initial_value: '0'
 
 # ---------------------------------------------------------------------
 #  Scriptler
@@ -311,7 +318,20 @@ interval:
   - interval: 60s
     then:
       - lambda: |-
-          if (!wifi::global_wifi_component->is_connected()) { id(modem_durum) = -1; return; }
+          if (!wifi::global_wifi_component->is_connected()) {
+            id(modem_durum) = -1;
+            id(kopuk_dk) += 1;
+            // Bu acilista hic baglanmadiysa (orn. cihaz yeni bir yere tasindi) kurulum agi
+            // uzun sure acik kalsin diye 30 dk, bilinen ag koptuysa 5 dk beklenir.
+            const int sinir = id(bagli_oldu) ? 5 : 30;
+            if (id(kopuk_dk) >= sinir && !id(doz).is_running() && !id(kalibrasyon).is_running()) {
+              ESP_LOGW("bekci", "%d dk Wi-Fi yok, yeniden baslatiliyor", id(kopuk_dk));
+              App.safe_reboot();
+            }
+            return;
+          }
+          id(bagli_oldu) = true;
+          id(kopuk_dk) = 0;
           int r = atr::ping_sonuc;
           atr::ping_sonuc = -1;
           if (r == 1) { id(ping_hata) = 0; id(modem_durum) = 1; }
@@ -367,6 +387,10 @@ debug:
   update_interval: 3600s
 
 text_sensor:
+  - platform: wifi_info
+    ssid:
+      name: "Bağlı Ağ"
+      entity_category: diagnostic
   - platform: debug
     reset_reason:
       name: "Son Başlatma Nedeni"
@@ -714,6 +738,28 @@ text:
     max_length: 120
     mode: text
     entity_category: config
+  - platform: template
+    id: yeni_ssid
+    name: "Yeni Wi-Fi Adı"
+    icon: mdi:wifi-cog
+    optimistic: true
+    restore_value: false
+    initial_value: ""
+    min_length: 0
+    max_length: 32
+    mode: text
+    entity_category: config
+  - platform: template
+    id: yeni_sifre
+    name: "Yeni Wi-Fi Şifresi"
+    icon: mdi:form-textbox-password
+    optimistic: true
+    restore_value: false
+    initial_value: ""
+    min_length: 0
+    max_length: 64
+    mode: password
+    entity_category: config
 
 switch:
   - platform: template
@@ -819,6 +865,21 @@ button:
     entity_category: config
     on_press:
       - component.update: guncelleme
+  - platform: template
+    name: "Wi-Fi Ağını Değiştir"
+    icon: mdi:wifi-sync
+    entity_category: config
+    on_press:
+      - lambda: |-
+          const std::string ssid = id(yeni_ssid).state;
+          if (ssid.empty()) { ESP_LOGW("wifi", "Yeni ag adi bos"); return; }
+          ESP_LOGI("wifi", "Yeni Wi-Fi agi kaydediliyor: %s", ssid.c_str());
+          wifi::global_wifi_component->save_wifi_sta(ssid, id(yeni_sifre).state);
+          id(bagli_oldu) = false;
+          id(kopuk_dk) = 0;
+      - text.set:
+          id: yeni_sifre
+          value: ""
   - platform: restart
     name: "Yeniden Başlat"
     entity_category: config

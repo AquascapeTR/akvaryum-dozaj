@@ -1,1 +1,1 @@
-Panele adım adım kurulum şeması eklendi (Kurulum Şeması).
+Wi-Fi ağını panelden değiştirme; cihaz yeni bir yerde kurulum ağını 30 dk açık tutar.
