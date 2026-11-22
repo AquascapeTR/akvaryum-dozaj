@@ -57,7 +57,7 @@ jobs:
             cp "$d"/*.bin site/firmware/
           done
           # Iki kartin manifestini tek dosyada birlestir (sayfa karti otomatik tanir)
-          jq -s '.[0] + {builds: (.[0].builds + .[1].builds)}' \
+          jq -s '.[0] + {builds: (.[0].builds + .[1].builds), new_install_prompt_erase: true}' \
             "${{ steps.esp32.outputs.name }}/manifest.json" \
             "${{ steps.esp32s3.outputs.name }}/manifest.json" > site/firmware/manifest.json
           cat site/firmware/manifest.json

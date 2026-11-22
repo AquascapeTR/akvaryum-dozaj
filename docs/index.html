@@ -72,7 +72,7 @@
     <h2>1. Yazılımı karta yükle</h2>
     <ol>
       <li>ESP32 kartını <strong>veri aktarabilen</strong> bir USB kablosuyla bilgisayara tak. (Bazı şarj kabloları veri taşımaz.)</li>
-      <li>Aşağıdaki butona bas, açılan pencerede kartın portunu seç ve <strong>Install</strong> de. Kart türü (ESP32 / ESP32-S3) otomatik tanınır. <strong>“Erase / Cihazı sil”</strong> seçeneğini işaretlemene gerek yok.</li>
+      <li>Aşağıdaki butona bas, açılan pencerede kartın portunu seç ve <strong>Install</strong> de. Kart türü (ESP32 / ESP32-S3) otomatik tanınır. İlk kurulumda ya da cihazı sıfırlamak istediğinde <strong>“Erase device”</strong> kutusunu işaretle (tüm ayarlar silinir); güncellemede işaretleme.</li>
       <li>Yükleme bitince <strong>Next</strong>'e bas: sayfa Wi-Fi ağını ve şifresini sorar. Gir, kaydet — Wi-Fi kurulumu bu kadar.</li>
     </ol>
     <div class="install">
@@ -84,7 +84,8 @@
     </div>
     <div class="note">
       Port listede görünmüyorsa: kablonuzu değiştirin veya kartınızdaki USB çipinin sürücüsünü kurun (<strong>CP210x</strong> ya da <strong>CH340</strong>).<br>
-      “Failed to initialize / connect” hatasında: karttaki <strong>BOOT</strong> butonuna basılı tutarken <strong>Install</strong>'a basın, yükleme başlayınca bırakın.
+      “Failed to initialize / connect” hatasında: karttaki <strong>BOOT</strong> butonuna basılı tutarken <strong>Install</strong>'a basın, yükleme başlayınca bırakın.<br>
+      <strong>Cihazı tamamen sıfırlamak için:</strong> BOOT butonuna basılı tutarak kartı USB'ye tak, “Yazılımı Yükle” → port → “Erase device” işaretli → Install.
     </div>
   </section>
 
