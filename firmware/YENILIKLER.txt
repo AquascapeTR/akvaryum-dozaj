@@ -1,1 +1,2 @@
+Güncelleme ekranında sadeleştirilmiş, daha profesyonel ifadeler.
 Wi-Fi ağını panelden değiştirme; cihaz yeni bir yerde kurulum ağını 30 dk açık tutar.
